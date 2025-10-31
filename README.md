@@ -38,7 +38,7 @@ nodemon server
 
 ### 5. Start the Frontend
 
-Run the following command to start the React frontend:
+Run the following command to start the React frontend
 
 ```bash
 npm start
