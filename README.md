@@ -7,7 +7,7 @@ Follow the steps below to set up the project locally.
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/KaShiekzmi/PawFinds-A-Pet-Adoption-System-MERN-Stack-Portfolio-with-Admin-Panel.git
+git clone 
 ```
 
 ### 2. Install Dependencies
