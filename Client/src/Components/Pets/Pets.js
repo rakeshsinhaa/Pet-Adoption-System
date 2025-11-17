@@ -1,10 +1,27 @@
 import React, { useEffect, useState } from "react";
 import PetsViewer from "./PetsViewer";
+import PetInfoPanel from "./PetInfoPanel"; 
 
 const Pets = () => {
   const [filter, setFilter] = useState("all");
   const [petsData, setPetsData] = useState([]);
   const [loading, setLoading] = useState(true);
+
+    // ⭐ NEW GLOBAL STATES
+    const [selectedPet, setSelectedPet] = useState(null);
+    const [isPanelOpen, setIsPanelOpen] = useState(false);
+  
+    // ⭐ When clicking any "i" button
+    const openInfo = (pet) => {
+      setSelectedPet(pet);
+      setIsPanelOpen(true);
+    };
+  
+    // ⭐ Close panel
+    const closeInfo = () => {
+      setIsPanelOpen(false);
+      setSelectedPet(null);
+    };
 
   useEffect(() => {
     const fetchRequests = async () => {
@@ -52,7 +69,7 @@ const Pets = () => {
         {loading ?
           <p>Loading</p> : ((filteredPets.length > 0 ) ? (
             filteredPets.map((petDetail, index) => (
-              <PetsViewer pet={petDetail} key={index} />
+              <PetsViewer pet={petDetail} key={index} openInfo={openInfo}  />
             ))
           ) : (
             <p className="oops-msg">Oops!... No pets available</p>
@@ -60,6 +77,12 @@ const Pets = () => {
           )
         }
       </div>
+      {/* ⭐ GLOBAL SLIDE PANEL — ONE ONLY */}
+      <PetInfoPanel
+        isOpen={isPanelOpen}
+        pet={selectedPet}
+        onClose={closeInfo}
+      />
     </>
   );
 };
