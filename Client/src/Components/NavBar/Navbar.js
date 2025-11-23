@@ -22,9 +22,9 @@ const Navbar = (props) => {
           <li>
             <Link to="/pets">Pets</Link>
           </li>
-          <li>
+          {/* <li>
             <Link to="/contact">Contact Us</Link>
-          </li>
+          </li> */}
         </ul>
       </div>
       <div>
