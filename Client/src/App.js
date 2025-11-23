@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./Components/NavBar/Navbar";
 import Home from "./Components/Home/Home";
-import Footer from "./Components/Footer/Footer";
+// import Footer from "./Components/Footer/Footer";
 import Services from "./Components/Services/Services";
 import Contact from "./Components/Contact/Contact";
 import Pets from "./Components/Pets/Pets";
@@ -12,9 +12,9 @@ import "./App.css";
 
 const Layout = ({ children }) => (
   <div className="app-layout">
-    <Navbar title="PawFinds" />
+    <Navbar title="Little Friend" />
     <main className="main-content">{children}</main>
-    <Footer title="PawFinds" />
+    {/* <Footer title="Little Friend" /> */}
   </div>
 );
 

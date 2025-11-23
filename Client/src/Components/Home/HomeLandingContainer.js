@@ -1,7 +1,7 @@
 import React from "react";
 // import girlHoldingADog from "./images/girlHoldingADog.png";
 import adoptMe from "./images/adoptMe.png";
-import homepageDog from "./images/homepageDog.png";
+// import homepageDog from "./images/homepageDog.png";
 import footPrint from "./images/footPrint.png";
 import leftPets from "./images/leftPets.png";
 
