@@ -17,7 +17,10 @@ function AdminNavBar() {
     <nav className="navbar">
       <div className="navbar-brand">Admin Panel</div>
       <div className="navbar-time">{currentTime.toLocaleString()}</div>
-      <h3 className='logout-btn' onClick={() => (window.location.reload())}>Logout</h3>
+      <h3 className='logout-btn' onClick={() => {
+        localStorage.removeItem('token');
+        window.location.reload();
+      }}>Logout</h3>
     </nav>
   );
 }
