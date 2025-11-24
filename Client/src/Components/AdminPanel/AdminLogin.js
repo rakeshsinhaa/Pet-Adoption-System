@@ -4,37 +4,48 @@ import AdminPanel from "./AdminPanel";
 const AdminLogin = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [loginSuccess, setLoginSuccess] = useState(false);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
-  const [usersData, setUsersData] = useState([]);
 
-  useEffect(() => {
-    const fetchUsersData = async () => {
-      try {
-        const response = await fetch('http://localhost:4000/admin/credentials');
-        if (!response.ok) {
-          throw new Error('Failed to fetch');
-        }
-        const data = await response.json();
-        setUsersData(data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
+  const handleLogin = async () => {
+    try {
+      const response = await fetch('http://localhost:4000/admin/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        localStorage.setItem('token', data.token);
+        // Force a re-render or state update to show AdminPanel
+        // For now, we can reload or use a parent state if available.
+        // Based on previous code, it seems this component switches view locally.
+        // But better to check if we can lift state or just use the local success state.
+        // The previous code used `loginSuccess` state.
+        setLoginSuccess(true);
+        setShowErrorMessage(false);
+      } else {
+        setShowErrorMessage(true);
       }
-    };
-
-    fetchUsersData();
-  }, []);
-
-  const handleLogin = () => {
-    const user = usersData.username === username && usersData.password === password;
-    if (user) {
-      setLoginSuccess(true);
-      setShowErrorMessage(false);
-    } else {
-      setLoginSuccess(false);
+    } catch (error) {
+      console.error('Login error:', error);
       setShowErrorMessage(true);
     }
   };
+
+  // We need to keep the state for view switching
+  const [loginSuccess, setLoginSuccess] = useState(false);
+
+  // Check for existing token on mount
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setLoginSuccess(true);
+    }
+  }, []);
 
   return (
     <div>
@@ -49,16 +60,16 @@ const AdminLogin = () => {
               placeholder="Username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              />
+            />
             <input
               type="password"
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              />
-              {showErrorMessage && (
-                <p className="error-message">Incorrect username or password</p>
-              )}
+            />
+            {showErrorMessage && (
+              <p className="error-message">Incorrect username or password</p>
+            )}
             <button className="float-right" onClick={handleLogin}>Login</button>
           </div>
         </div>
